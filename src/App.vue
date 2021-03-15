@@ -1,13 +1,28 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    {{info}}
+    <!-- <router-view/> -->
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+    return{
+      info:null,
+      jwsr:null
+    }
+  },
+  mounted(){
+    axios
+      .get('/api/news/wap/fymap2020_data.d.json')
+      .then(res=>{
+        this.info=res.data.data,
+        this.jwsr=res.data.data.jwsrTop
+        })
+  }
 }
 </script>
 
@@ -18,6 +33,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
 }
+
 </style>
